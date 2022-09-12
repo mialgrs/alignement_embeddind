@@ -1,34 +1,9 @@
 #! /usr/bin/python3
-"""Functions for global alignment."""
-import numpy as np
+"""Functions for semi-global alignment.
 
-def alignment (dotprod):
-    """Get an alignment matrice between 2 sequences.
-    
-    It uses dot prod matrice to determine values of 
-    the align matrice with Needleman&Wunsch algo. 
-    Parameters
-    ----------
-    dotprod : numpy array
-        Dot product matrice between 2 sequences.
-
-    
-    Returns
-    -------
-    numpy array
-        Alignment matrice with Needleman&Wunsch algorithm.
-    """
-    matrice = np.zeros((len(dotprod)+1, len(dotprod[0])+1))
-    #print(matrice.shape)
-    for i in range(1, len(matrice)):
-        for j in range(1, len(matrice[0])):
-            diag = matrice[i-1,j-1] + dotprod[i-1,j-1]
-            left = matrice[i,j-1] + 0
-            up = matrice[i-1,j] + 0
-            matrice[i,j] = max(diag,left,up)
-    np.savetxt("mat_align2.txt", matrice, delimiter="\t")
-    return matrice
-
+The alignment matrix is computed the same way 
+as a global alignment matrix so the function of the global align
+is used for the semi-global align."""
 def needle_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     """align recurs
     

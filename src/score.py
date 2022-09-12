@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-
+"""Function to compute the dot product between to 2 sequences."""
 import numpy as np
  
 def dot_product(emb_arr1, emb_arr2, file_out):
