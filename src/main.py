@@ -38,6 +38,7 @@ if __name__=="__main__":
         mat_align = alignlocal.alignment(mat_dot)
         loc_bif, loc_adk = \
             alignlocal.smith_waterman(mat_align, prot_fasta1, prot_fasta2)
+        print(type(loc_adk))
 
     #glocal alignment
     if config.getboolean('alignment','glocal') == True:

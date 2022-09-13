@@ -4,4 +4,4 @@ channels :
     - conda-forge
 dependencies :
     - numpy=4.14.0
-	- pandas=1.4.3
+    - configparser

@@ -13,7 +13,7 @@ def read_emb(file):
         
     Returns
     -------
-    array
+    numpy array
         Matrix of embedding values by lenght of the protein sequence."""
     with open (file, 'r') as emb:
         #aaa = np.zeros((1,1024))
@@ -49,12 +49,26 @@ def read_fasta(file):
         seq = list(line_seq)
     return seq 
 
+def write_file(seq1, seq2, file_out):
+    """Get a fasta file as entry to return the corresponding seq in a list.
 
-if __name__ == "__main__":
-    emb_file = ""
-    emb_mat = read_emb(emb_file)
-    fasta = "P00509.fasta"
-    seq = read_fasta(fasta)
-    print(f'{seq}')
+    Parameters
+    ----------
+    seq1 : str
 
-# du coup les fichiers ont généralement ce genre de format voilaa
+    seq2 : str
+
+    file_out : str 
+        Name of fasta file.
+
+    Returns
+    -------
+    list
+        Sequence with each position separated.
+    """
+    if type(seq1) == dict:
+        with open(file_out, 'a') as file:
+            for key in seq1.keys():
+                file.write(f'{seq1[key]}\n{seq2[key]}\n\n')
+    with open(file_out, 'w') as file:
+        file.write(f'{seq1}\n{seq2}')

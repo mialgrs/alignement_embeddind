@@ -8,6 +8,7 @@ def alignment(dotprod):
     
     It uses dot prod matrice to determine values of 
     the align matrice with Smith&Waterman algo.
+
     Parameters
     ----------
     dotprod : numpy array
@@ -24,7 +25,7 @@ def alignment(dotprod):
             left = matrice[i,j-1] + 0
             up = matrice[i-1,j] + 0
             matrice[i,j] = max(diag,left,up, 0)
-    #np.savetxt("mat_align2.txt", matrice, delimiter="\t")
+            
     return matrice
 
 def smith_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
@@ -69,21 +70,22 @@ def smith_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
         seq2.append("-") #pas sur que ce soit i
         return smith_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
 
-def smith_waterman(mat_align, fasta_seq1, fasta_seq2):
+def smith_waterman(mat_align, fasta_seq1, fasta_seq2, file_out):
     """fontion init align global
     
     Parameters
     ----------
     mat_align : numpy array
-    
+        Alignment matrice between the 2 sequences.
     fasta_seq1 : list
-
+        Sequence of the first protein.
     fasta_seq2 : list
-    
+        Sequence of the second protein.
+
     Returns
     -------
     str, str
-
+        The 2 aligned sequences.
     """
     seq_align1 = {}
     seq_align2 = {}
@@ -97,5 +99,8 @@ def smith_waterman(mat_align, fasta_seq1, fasta_seq2):
     for key in seq_align1.keys():
         seq_align1[key] = "".join(seq_align1[key][::-1])
         seq_align2[key] = "".join(seq_align2[key][::-1])
+        with open (file_out, 'a') as file:
+            file.write(f'{seq_align1[key]}\n{seq_align2[key]}\n\n')
+
     return seq_align1, seq_align2
 

@@ -16,11 +16,11 @@ def dot_product(emb_arr1, emb_arr2, file_out):
     
     Returns
     -------
-    array
+    numpy array
         array 2 dim de taille len(prot1, prot2) avec dot prod entre chaque pos.
         """
     res = np.dot(emb_arr1, emb_arr2.T)
-    # mettre option os si file existe ou non
-    #np.savetxt(file_out, res, delimiter="\t")
+    np.savetxt(file_out, res, delimiter="\t")
+    
     return res
 
