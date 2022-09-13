@@ -24,7 +24,7 @@ conda install mamba -n base -c conda-forge
 
 Create the `embedding` conda environment:
 ```
-mamba env create -f binder/environment.yml
+mamba env create -f embedding.yml
 ```
 
 Load the `embedding` conda environment:
