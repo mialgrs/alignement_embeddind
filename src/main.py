@@ -1,40 +1,45 @@
 #! /usr/bin/python3
 
+import configparser
 import numpy as np
 import readfile 
 import alignglobal
 import alignlocal
+import alignglocal
 import score
 
 
 if __name__=="__main__":
-    emb1 = "../data/6PF2K_1bif.t5emb"
-
-    emb2 = "../data/adk_2ak3a.t5emb"
+    config = configparser.ConfigParser()   
+    config.read('embedding.cfg')
+    #init emb file for 2 prot
+    emb1 = config['paths']['to_data'] + config['files']['prot1_emb']
+    emb2 = config['paths']['to_data'] + config['files']['prot2_emb']
     mat_emb1 = readfile.read_emb(emb1)
     mat_emb2 = readfile.read_emb(emb2)
 
-    dot_file = "../results/dot_test.txt"
+    #compute and save dot prod between the 2
+    dot_file = config['paths']['to_res'] + config['files']['dot']
     mat_dot = score.dot_product(mat_emb1, mat_emb2, dot_file)
 
-    prot1 = "../data/6PF2K_1BIF.fasta"
-    prot2 = "../data/ADK_2AK3A.fasta"
-
-    mat_align = alignglobal.alignment(mat_dot)
-    #print(mat_align)
+    prot1 = config['paths']['to_data'] + config['files']['prot1_fasta']
+    prot2 = config['paths']['to_data'] + config['files']['prot2_fasta']
     prot_fasta1 = readfile.read_fasta(prot1)
     prot_fasta2 = readfile.read_fasta(prot2) 
-    glob_bif, glob_adk = \
-        alignglobal.needleman_wunsch(mat_align, prot_fasta1, prot_fasta2)
-    print(glob_bif)
-    print(f'{glob_adk}\n')
+
+    #global alignment
+    if config.getboolean('alignment','global') == True :
+        mat_align = alignglobal.alignment(mat_dot) 
+        glob_bif, glob_adk = \
+            alignglobal.needleman_wunsch(mat_align, prot_fasta1, prot_fasta2)
     
-    loc_bif, loc_adk = \
-        alignlocal.smith_waterman(mat_align, prot_fasta1, prot_fasta2)
-    print(loc_bif)
-    print(loc_adk)
-    #with open ("../results/bif_adk.txt", "w") as file:
-    #    file.write(f'{glob_bif}\n{glob_adk}\n\n')
-    #    file.write(f'{loc_bif}\n{loc_adk}')
-    # faire un file avec toutes les data à modif ?
-        
+    #local alignment
+    if config.getboolean('alignment','local') == True:
+        mat_align = alignlocal.alignment(mat_dot)
+        loc_bif, loc_adk = \
+            alignlocal.smith_waterman(mat_align, prot_fasta1, prot_fasta2)
+
+    #glocal alignment
+    if config.getboolean('alignment','glocal') == True:
+        gloc_bif, gloc_adk = \
+            alignglocal.semi_global(mat_align, prot_fasta1, prot_fasta2)

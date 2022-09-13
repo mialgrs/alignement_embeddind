@@ -4,48 +4,49 @@
 The alignment matrix is computed the same way 
 as a global alignment matrix so the function of the global align
 is used for the semi-global align."""
-def needle_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
-    """align recurs
+import numpy as np 
+
+def semi_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
+    """Traceback the semi-global alignment by recursivity. 
     
     Parameters
     ----------
     mat : numpy array
-    
+        Alignment matrice between the 2 sequences.
     fasta1 : list
-    
+        Sequence of the first protein.
     fasta2 : list
-    
+        Sequence of the second protein.
     i : int
-    
+        The index where the traceback begin.
     j : int
-    
+        The column where the traceback begin.
     seq1 : list
-    
+        The aligned sequence of the first protein.
     seq2 : list
-    
+        The aligned sequence of the second protein.
     
     Returns
     -------
     list, list 
-
+        The 2 aligned sequences.
     """
-    if i == 0 and j == 0:
+    if j == 0:
         return seq1, seq2
     elif max(mat[i-1,j],mat[i,j-1],mat[i-1,j-1]) == mat[i-1,j-1]:
         seq1.append(fasta1[i-1])
         seq2.append(fasta2[j-1])
-        return needle_recurs(mat, fasta1, fasta2, i-1, j-1, seq1, seq2)
+        return semi_recurs(mat, fasta1, fasta2, i-1, j-1, seq1, seq2)
     elif max(mat[i-1,j],mat[i,j-1],mat[i-1,j-1]) == mat[i,j-1]:
-        seq1.append("-") #pas sur que ce soit j
+        seq1.append("-")
         seq2.append(fasta2[j-1])
-        return needle_recurs(mat, fasta1, fasta2, i, j-1, seq1, seq2)
+        return semi_recurs(mat, fasta1, fasta2, i, j-1, seq1, seq2)
     else:
         seq1.append(fasta1[i-1])
-        seq2.append("-") #pas sur que ce soit i
-        return needle_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
+        seq2.append("-") 
+        return semi_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
 
-# need to get sequence by recursivity
-def needleman_wunsch(mat_align, fasta_seq1, fasta_seq2):
+def semi_global(mat_align, fasta_seq1, fasta_seq2):
     """fontion init align global
     
     Parameters
@@ -61,13 +62,11 @@ def needleman_wunsch(mat_align, fasta_seq1, fasta_seq2):
     str, str
 
     """
-    # global
     seq_align1 = []
     seq_align2 = []
-    i = len(mat_align)-1
     j = len(mat_align[0])-1
-
-    needle_recurs(mat_align, fasta_seq1, fasta_seq2, \
+    i = np.argmax(mat_align[:, j])
+    semi_recurs(mat_align, fasta_seq1, fasta_seq2, \
         i, j, seq_align1, seq_align2)
     seq_align1 = "".join(seq_align1[::-1])
     seq_align2 = "".join(seq_align2[::-1])
