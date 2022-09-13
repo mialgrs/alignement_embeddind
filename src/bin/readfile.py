@@ -5,12 +5,12 @@ import numpy as np
 
 def read_emb(file):
     """Put embedding data from a file to an array.
-    
+
     Parameters
     ----------
     file : str
         Name of the embedding file.
-        
+
     Returns
     -------
     numpy array
@@ -33,7 +33,7 @@ def read_fasta(file):
 
     Parameters
     ----------
-    file : str 
+    file : str
         Name of fasta file.
 
     Returns
@@ -47,28 +47,4 @@ def read_fasta(file):
             if not line.startswith(">"):
                 line_seq += line.strip()
         seq = list(line_seq)
-    return seq 
-
-def write_file(seq1, seq2, file_out):
-    """Get a fasta file as entry to return the corresponding seq in a list.
-
-    Parameters
-    ----------
-    seq1 : str
-
-    seq2 : str
-
-    file_out : str 
-        Name of fasta file.
-
-    Returns
-    -------
-    list
-        Sequence with each position separated.
-    """
-    if type(seq1) == dict:
-        with open(file_out, 'a') as file:
-            for key in seq1.keys():
-                file.write(f'{seq1[key]}\n{seq2[key]}\n\n')
-    with open(file_out, 'w') as file:
-        file.write(f'{seq1}\n{seq2}')
+    return seq

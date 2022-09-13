@@ -37,15 +37,23 @@ To deactivate an active environment, use
 ```
 conda deactivate
 ```
-## Modify the configuration file
+## Execute the alignement script
 
-`[files]` section
-put file name of prot to align (emb + fasta)
-`[align]` section 
-choose True or False for each alignment
+### Move to the right directory
 
-## Run code
+Use the command `cd` to change directory.
+```
+cd path/to/alignment_embedding/src
+```
+### Modify the configuration file
+ - `[files]` section
+Put the name of the fasta and t5emb file of the 2 protein.
+
+ - `[align]` section 
+Choose which alignment you need by indicating `True` or `False` for each.
+
+### Run the script
 
 ```
-python path/to/src/main.py
+python main.py
 ```
