@@ -42,14 +42,16 @@ conda deactivate
 ### Move to the right directory
 
 Use the command `cd` to change directory.
-```
-cd path/to/alignment_embedding/src
+```bash
+cd src
 ```
 ### Modify the configuration file
  - `[files]` section
+
 Put the name of the fasta and t5emb file of the 2 protein.
 
  - `[align]` section 
+
 Choose which alignment you need by indicating `True` or `False` for each.
 
 ### Run the script
