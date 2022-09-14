@@ -1,5 +1,7 @@
 # Alignement d'embedding par programmation dynamique
 
+Author : Mia Legras
+
 ## Setup your environment
 
 Clone the repository:
@@ -45,8 +47,6 @@ Use the command `cd` to change directory.
 ```bash
 cd src
 ```
-@author : Mia Legras
-
 ### Modify the configuration file
  - `[files]` section
 
