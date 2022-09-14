@@ -6,22 +6,23 @@ import numpy as np
 def alignment(dotprod, gap, file_out):
     """Get an alignment matrice between 2 sequences.
 
-    It uses dot prod matrice to determine values of
-    the align matrice with Smith&Waterman algo.
+    It uses the dot product matrix and the Smith&Waterman algorithm  matrix
+    to determine the score at each position in the alignment matrix.
 
     Parameters
     ----------
     dotprod : numpy array
-        Dot product matrice between 2 sequences.
+        Dot product matrice between two sequences.
     gap : int
-
+        The added value when you put a gap.
     file_out : str
-
+        Name of the file to export the alignment matrix.
 
     Return
     ------
     numpy array
-        Alignment matrice with Smith&Waterman algorithm."""
+        Alignment matrix with Smith&Waterman algorithm.
+    """
     matrice = np.zeros((len(dotprod)+1, len(dotprod[0])+1))
     for i in range(1, len(matrice)):
         for j in range(1, len(matrice[0])):
@@ -38,7 +39,7 @@ def smith_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Parameters
     ----------
     mat : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrice between the two sequences.
     fasta1 : list
         Sequence of the first protein.
     fasta2 : list
@@ -55,7 +56,7 @@ def smith_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Returns
     -------
     list, list
-        The 2 aligned sequences.
+        The two aligned sequences in reverse.
     """
     if mat[i,j] == 0:
         return seq1, seq2
@@ -75,21 +76,27 @@ def smith_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
         return smith_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
 
 def smith_waterman(mat_align, fasta_seq1, fasta_seq2, file_out):
-    """fontion init align global
+    """Recover the aligned sequences as a string.
+
+    It initializes the variables to call the function smith_recurs(),
+    puts the sequences in the right order and exports the result to a file.
 
     Parameters
     ----------
     mat_align : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrice between the two sequences.
     fasta_seq1 : list
         Sequence of the first protein.
     fasta_seq2 : list
         Sequence of the second protein.
+    file_out : str
+        Name of the file to export the alignment matrix.
 
     Returns
     -------
-    str, str
-        The 2 aligned sequences.
+    dict, dict
+        The aligned sequences, for a same key
+        we have the sequences associated between them.
     """
     seq_align1 = {}
     seq_align2 = {}

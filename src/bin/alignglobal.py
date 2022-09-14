@@ -3,24 +3,24 @@
 import numpy as np
 
 def alignment (dotprod, gap, file_out):
-    """Get an alignment matrice between 2 sequences.
+    """Get an alignment matrice between two sequences.
 
-    It uses dot prod matrice to determine values of
-    the align matrice with Needleman&Wunsch algo.
+    It uses the dot product matrix and the Needleman&Wunsch algorithm  matrix
+    to determine the score at each position in the alignment matrix.
 
     Parameters
     ----------
     dotprod : numpy array
-        Dot product matrice between 2 sequences.
+        Dot product matrice between two sequences.
     gap : int
-
+        The added value when you put a gap.
     file_out : str
-
+        Name of the file to export the alignment matrix.
 
     Returns
     -------
     numpy array
-        Alignment matrice with Needleman&Wunsch algorithm.
+        Alignment matrix with Needleman&Wunsch algorithm.
     """
     matrice = np.zeros((len(dotprod)+1, len(dotprod[0])+1))
     for i in range(1, len(matrice)):
@@ -38,13 +38,13 @@ def needle_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Parameters
     ----------
     mat : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrice between the two sequences.
     fasta1 : list
         Sequence of the first protein.
     fasta2 : list
         Sequence of the second protein.
     i : int
-        The index where the traceback begin.
+        The line where the traceback begin.
     j : int
         The column where the traceback begin.
     seq1 : list
@@ -55,7 +55,7 @@ def needle_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Returns
     -------
     list, list
-        The 2 aligned sequences.
+        The two aligned sequences backwards.
     """
     if i == 0 and j == 0:
         return seq1, seq2
@@ -76,23 +76,26 @@ def needle_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
         return needle_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
 
 def needleman_wunsch(mat_align, fasta_seq1, fasta_seq2, file_out):
-    """Initialize and
+    """Recover the aligned sequences as a string.
 
+    It initializes the variables to call the function needl_recurs(),
+    puts the sequences in the right order and exports the result to a file.
+    
     Parameters
     ----------
     mat_align : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrix between the two sequences.
     fasta_seq1 : list
         Sequence of the first protein.
     fasta_seq2 : list
-        Sequence of the first protein.
+        Sequence of the second protein.
     file_out : str
-
+        Name of the file to export the alignment matrix.
 
     Returns
     -------
     str, str
-        The 2 aligned sequences.
+        The two aligned sequences.
     """
     seq_align1 = []
     seq_align2 = []

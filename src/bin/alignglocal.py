@@ -1,9 +1,9 @@
 #! /usr/bin/python3
 """Functions for semi-global alignment.
 
-The alignment matrix is computed the same way 
-as a global alignment matrix so the function of the global align
-is used for the semi-global align."""
+The alignment matrix is computed the same way as a global alignment matrix
+so the function of the global alignment is used for the semi-global alignment.
+"""
 import numpy as np 
 
 def semi_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
@@ -12,7 +12,7 @@ def semi_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Parameters
     ----------
     mat : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrice between the two sequences.
     fasta1 : list
         Sequence of the first protein.
     fasta2 : list
@@ -29,7 +29,7 @@ def semi_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
     Returns
     -------
     list, list
-        The 2 aligned sequences.
+        The two aligned sequences backwards.
     """
     if j == 0:
         return seq1, seq2
@@ -50,22 +50,26 @@ def semi_recurs(mat, fasta1, fasta2, i, j, seq1, seq2):
         return semi_recurs(mat, fasta1, fasta2, i-1, j, seq1, seq2)
 
 def semi_global(mat_align, fasta_seq1, fasta_seq2, file_out):
-    """fontion init align global
+    """Recover the aligned sequences as a string.
+
+    It initializes the variables to call the function semi_recurs(),
+    puts the sequences in the right order and exports the result to a file.
 
     Parameters
     ----------
     mat_align : numpy array
-        Alignment matrice between the 2 sequences.
+        Alignment matrice between the two sequences.
     fasta_seq1 : list
         Sequence of the first protein.
     fasta_seq2 : list
         Sequence of the second protein.
     file_out : str
+        Name of the file to export the alignment matrix.
 
     Returns
     -------
     str, str
-        The 2 aligned sequences.
+        The two aligned sequences.
     """
     seq_align1 = []
     seq_align2 = []

@@ -14,19 +14,17 @@ def read_emb(file):
     Returns
     -------
     numpy array
-        Matrix of embedding values by lenght of the protein sequence."""
+        Matrix of embedding values by length of the protein sequence.
+    """
     with open (file, 'r') as emb:
-        #aaa = np.zeros((1,1024))
         liste = []
         for line in emb:
             vecteur = line.strip().split()
             vecteur = [float(i) for i in vecteur]
-            #aaa = np.concatenate((aaa, np.array([vecteur])))
             liste.append(vecteur)
-            #hey = aaa[1:]
         emb_arr = np.array(liste)
-        #return hey
-        return emb_arr
+    
+    return emb_arr
 
 def read_fasta(file):
     """Get a fasta file as entry to return the corresponding seq in a list.
@@ -47,4 +45,5 @@ def read_fasta(file):
             if not line.startswith(">"):
                 line_seq += line.strip()
         seq = list(line_seq)
+    
     return seq
