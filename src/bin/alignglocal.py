@@ -81,6 +81,6 @@ def semi_global(mat_align, fasta_seq1, fasta_seq2, file_out):
     seq_align2 = "".join(seq_align2[::-1])
 
     with open(file_out, 'w') as file:
-        file.write(f'{seq_align1}\n{seq_align2}')
+        file.write(f'{seq_align2}\n{seq_align1}')
 
     return seq_align1, seq_align2
