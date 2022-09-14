@@ -45,6 +45,8 @@ Use the command `cd` to change directory.
 ```bash
 cd src
 ```
+@author : Mia Legras
+
 ### Modify the configuration file
  - `[files]` section
 
