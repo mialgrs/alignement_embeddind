@@ -111,6 +111,6 @@ def smith_waterman(mat_align, fasta_seq1, fasta_seq2, file_out):
         seq_align1[key] = "".join(seq_align1[key][::-1])
         seq_align2[key] = "".join(seq_align2[key][::-1])
         with open (file_out, 'a') as file:
-            file.write(f'{seq_align1[key]}\n{seq_align2[key]}\n\n')
+            file.write(f'{seq_align2[key]}\n{seq_align1[key]}\n\n')
 
     return seq_align1, seq_align2
