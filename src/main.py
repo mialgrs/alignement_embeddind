@@ -10,8 +10,8 @@ if __name__=="__main__":
     config = configparser.ConfigParser()
     config.read('embedding.cfg')
     #initialize embedding file for the 2 proteins
-    emb1 = config['paths']['to_data'] + config['files']['prot1_emb']
-    emb2 = config['paths']['to_data'] + config['files']['prot2_emb']
+    emb1 = config['paths']['to_data'] + config['files']['prot_comp_emb']
+    emb2 = config['paths']['to_data'] + config['files']['prot_int_emb']
     mat_emb1 = readfile.read_emb(emb1)
     mat_emb2 = readfile.read_emb(emb2)
 
@@ -20,8 +20,8 @@ if __name__=="__main__":
     mat_dot = score.dot_product(mat_emb1, mat_emb2, file_dot)
 
     #load fasta into list of str
-    prot1 = config['paths']['to_data'] + config['files']['prot1_fasta']
-    prot2 = config['paths']['to_data'] + config['files']['prot2_fasta']
+    prot1 = config['paths']['to_data'] + config['files']['prot_comp_fasta']
+    prot2 = config['paths']['to_data'] + config['files']['prot_int_fasta']
     prot_fasta1 = readfile.read_fasta(prot1)
     prot_fasta2 = readfile.read_fasta(prot2)
 
