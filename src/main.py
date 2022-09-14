@@ -25,7 +25,7 @@ if __name__=="__main__":
     prot_fasta1 = readfile.read_fasta(prot1)
     prot_fasta2 = readfile.read_fasta(prot2)
 
-    gap = config['alignment']['gap']
+    gap = int(config['alignment']['gap'])
     file_align = config['paths']['to_res'] + config['files']['align']
 
     #global alignment
